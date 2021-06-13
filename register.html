@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Tracker</title>
+    <link href="login.css" type="text/css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a class="headerclick" href="login.html" style="color: ivory; text-decoration: none;">
+                Daily Sleep Tracker
+            </a>
+        </div>
+        <div class="register">
+        <h3>REGISTRATION FORM</h3>
+        <label>Full Name</label>
+            <br>
+            <input type="text" id="fullname">
+            <br>
+            <label>Email</label>
+            <br>
+            <input type="email" id="uname">
+            <br>
+            <label>Age</label>
+            <br>
+            <input type="number" id="age">
+            <br>
+            <label>Gender
+            </label>
+            <br>
+            <input type="radio" id="male" name="gender">
+            <label>Male</label>
+            <input type="radio" id="female" name="gender">
+            <label>Female</label>
+            <br>
+            <label>New password</label>
+            <br>
+            <input type="password" id="pwd">
+            <br>
+            <button onclick="resetKaro()">Reset</button>
+            <button onclick="registerKaro()">Register</button>
+            <p id="prompt" style="color:green;font-style: bold;"></p>
+        </div>
+        <script>
+            function registerKaro() {
+                var fullname=document.getElementById('fullname').value;
+                var uname=document.getElementById('uname').value;
+                var age=document.getElementById('age').value;
+
+                var gender;
+                if(document.getElementById('male').checked) {
+                    gender='male';
+                } else if(document.getElementById('female').checked) {
+                    gender='female';
+                }
+
+                var pwd=document.getElementById('pwd').value;
+
+                var dataString="fullname="+fullname+"&uname="+uname+"&age="+age+"&gender="+gender+"&pwd="+pwd;
+
+                $.ajax({
+                type : "POST",  
+                url  : "registerrequest.php",  
+                data : dataString,
+                success: function(res){ 
+                    console.log(res); 
+                    if(res=='Success') {
+                        document.getElementById('fullname').value="";
+                        document.getElementById('uname').value="";
+                        document.getElementById('age').value="";
+                        document.getElementById('male').value="";
+                        document.getElementById('female').value="";
+                        document.getElementById('pwd').value="";
+                        document.getElementById('prompt').innerHTML='Successfully registered';
+                        setTimeout(function () {
+                            window.location.href = "login.php"
+                        }, 3000);
+                    }                       
+                }
+            });
+
+
+            }
+            function resetKaro() {
+                document.getElementById('fullname').value="";
+                document.getElementById('uname').value="";
+                document.getElementById('age').value="";
+                document.getElementById('male').value="";
+                document.getElementById('female').value="";
+                document.getElementById('pwd').value="";
+            }
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+        
+    </script>
+</body>
+</html>

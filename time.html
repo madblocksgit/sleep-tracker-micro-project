@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<style >
+	.image{
+
+	background-image: url(https://cdn.wallpapersafari.com/48/48/NQV7zq.jpg);
+        padding-top: 150px
+    
+	}
+	.form{
+		color:white;
+	}
+</style>
+
+<body class="image">
+	<center>
+<h1>DAILY SLEEP TRACKER</h1>		
+<h1 class="form">New Entry</h1>
+<br>
+  <label for="dates" class="form">DATE:</label>
+
+  <input type="date" id="dates" name="dates"><br></br>
+    <br>
+ <label for="tim" class="form">SLEEP TIME :&nbsp;&nbsp;&nbsp;&nbsp;</label>
+<input type="time" id="tim" name="tim"  value=""><br></br>
+ <br>
+ <label for="tme" class="form">wakeup time TIME :</label>
+<input type="time" id="tme" name="tme" value= ""><br>
+<br> <br>
+<input type="reset"> &nbsp; &nbsp;
+<input type="button" value="Cancel" onclick="location.href='@Url.Action("Index" , "Home" )';">&nbsp; &nbsp;
+<button onclick="submitKaro()">Submit</button></br>
+</center>
+
+<p id="demo" style="color:green"></p>
+
+<script>
+function myFunction() {
+var x = document.getElementById("tim").value;
+var y = document.getElementById("tme").value;
+document.getElementById("demo").innerHTML = x+y;
+}
+</script>
+<!-- <input type="button" value="Cancel" onclick="location.href='@Url.Action("Index" , "Home" )';">
+<input type ="submit"></br>
+ -->
+ <script>
+ 		function submitKaro() {
+ 			var dates=document.getElementById('dates').value;
+ 			var times=document.getElementById('tim').value;
+ 			var timew=document.getElementById('tme').value;
+
+ 			var dataString="dates="+dates+"&times="+times+"&timew="+timew;
+ 			$.ajax({
+                type : "POST",  
+                url  : "timerequest.php",  
+                data : dataString,
+                success: function(res){ 
+                    console.log(res); 
+                    if(res=='Success') {
+                    	alert("Records Added Successfully");
+                    }
+                }
+            });
+ 		}
+ </script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+        
+    </script>
+</body>
+</html>
